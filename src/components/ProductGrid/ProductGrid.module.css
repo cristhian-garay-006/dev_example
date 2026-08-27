@@ -42,16 +42,17 @@
 }
 
 .pillActive {
-  background: #ffffff;
-  color: #090a0f;
-  border-color: #ffffff;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+  background: var(--gradient-accent);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.45);
 }
 
 [data-theme='light'] .pillActive {
-  background: #090a0f;
+  background: var(--gradient-accent);
   color: #ffffff;
-  border-color: #090a0f;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
 }
 
 .filterHeader {

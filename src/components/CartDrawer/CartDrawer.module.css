@@ -238,31 +238,25 @@
 }
 
 .checkoutBtn {
-  background: #ffffff;
-  color: #090a0f;
-  padding: 0.9rem 1rem;
+  background: var(--gradient-accent);
+  color: #ffffff;
+  padding: 0.95rem 1.2rem;
   border-radius: var(--radius-md);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  gap: 0.6rem;
+  box-shadow: 0 8px 24px -4px rgba(99, 102, 241, 0.45);
   transition: var(--transition);
 }
 
 .checkoutBtn:hover {
   transform: translateY(-2px);
-  background: #f1f5f9;
-  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 28px -4px rgba(99, 102, 241, 0.6);
 }
 
-[data-theme='light'] .checkoutBtn {
-  background: #090a0f;
-  color: #ffffff;
-}
-
-[data-theme='light'] .checkoutBtn:hover {
-  background: #1e293b;
+.checkoutBtn:active {
+  transform: scale(0.98);
 }

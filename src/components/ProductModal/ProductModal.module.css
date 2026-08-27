@@ -242,9 +242,9 @@
 
 .addBtn {
   flex: 1;
-  background: #ffffff;
-  color: #090a0f;
-  padding: 0.85rem 1.25rem;
+  background: var(--gradient-accent);
+  color: #ffffff;
+  padding: 0.9rem 1.25rem;
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 1rem;
@@ -252,23 +252,17 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px -2px rgba(99, 102, 241, 0.45);
   transition: var(--transition);
 }
 
 .addBtn:hover {
   transform: translateY(-2px);
-  background: #f1f5f9;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 24px -2px rgba(99, 102, 241, 0.6);
 }
 
-[data-theme='light'] .addBtn {
-  background: #090a0f;
-  color: #ffffff;
-}
-
-[data-theme='light'] .addBtn:hover {
-  background: #1e293b;
+.addBtn:active {
+  transform: scale(0.98);
 }
 
 @media (max-width: 768px) {
