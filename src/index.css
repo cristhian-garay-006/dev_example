@@ -66,6 +66,13 @@
 body {
   font-family: var(--font-main);
   background-color: var(--bg-primary);
+  background-image: 
+    linear-gradient(rgba(9, 10, 12, 0.88), rgba(9, 10, 12, 0.92)),
+    url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -73,6 +80,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme='light'] body {
+  background-image: 
+    linear-gradient(rgba(248, 250, 252, 0.90), rgba(241, 245, 249, 0.94)),
+    url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop');
 }
 
 #root {
