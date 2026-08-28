@@ -40,7 +40,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [];
     }
   });
-
+  yaneth
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProductModal, setSelectedProductModal] = useState<Product | null>(null);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
