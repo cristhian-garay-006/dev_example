@@ -1,4 +1,4 @@
-import { Search, ShoppingBag, Moon, Sun, X, Zap } from 'lucide-react';
+import { Search, ShoppingBag, Moon, Sun, X, Zap, Package } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import styles from './Navbar.module.css';
 
@@ -8,7 +8,15 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
-  const { totalItems, setIsCartOpen, searchQuery, setSearchQuery, setSelectedCategory } = useCart();
+  const { 
+    totalItems, 
+    setIsCartOpen, 
+    searchQuery, 
+    setSearchQuery, 
+    setSelectedCategory,
+    ordersHistory,
+    setIsOrdersModalOpen 
+  } = useCart();
 
   return (
     <nav className={styles.navbar}>
@@ -62,6 +70,18 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
 
           <button 
             className={styles.actionBtn} 
+            onClick={() => setIsOrdersModalOpen(true)}
+            aria-label="Mis Pedidos y Rastreo"
+            title="Mis Pedidos y Rastreo de Envío"
+          >
+            <Package size={19} />
+            {ordersHistory.length > 0 && (
+              <span className={styles.cartBadge}>{ordersHistory.length}</span>
+            )}
+          </button>
+
+          <button 
+            className={styles.actionBtn} 
             onClick={() => setIsCartOpen(true)}
             aria-label="Ver carrito"
             title="Abrir carrito"
@@ -76,3 +96,4 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
     </nav>
   );
 };
+

@@ -32,10 +32,33 @@ export interface CheckoutFormData {
   cardCvc: string;
 }
 
+export type OrderStatus = 'processing' | 'packed' | 'shipped' | 'delivered';
+
+export interface TrackingTimelineItem {
+  status: OrderStatus;
+  title: string;
+  description: string;
+  timestamp: string;
+  completed: boolean;
+}
+
 export interface OrderConfirmation {
   orderId: string;
   customerName: string;
+  customerEmail: string;
+  address: string;
+  city: string;
+  zipCode: string;
+  subtotal: number;
+  tax: number;
   total: number;
   date: string;
+  timestamp: number;
   items: CartItem[];
+  status: OrderStatus;
+  trackingNumber: string;
+  carrier: string;
+  estimatedDelivery: string;
+  timeline: TrackingTimelineItem[];
 }
+
