@@ -14,7 +14,10 @@ export const CheckoutModal = () => {
     total, 
     clearCart,
     lastOrder,
-    setLastOrder
+    setLastOrder,
+    addOrderToHistory,
+    setIsOrdersModalOpen,
+    setActiveTrackingOrderId
   } = useCart();
 
   const [formData, setFormData] = useState<CheckoutFormData>({
@@ -41,23 +44,52 @@ export const CheckoutModal = () => {
     e.preventDefault();
     setIsProcessing(true);
 
-    // Simulación de procesamiento de pago
     setTimeout(() => {
+      const orderId = 'NEXUS-' + Math.floor(10000 + Math.random() * 90000);
+      const trackingNumber = 'NX-TRK-' + Math.floor(100000 + Math.random() * 900000);
+      const dateFormatted = new Date().toLocaleDateString('es-ES', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      const estDeliveryDate = new Date();
+      estDeliveryDate.setDate(estDeliveryDate.getDate() + 2);
+      const estimatedDelivery = estDeliveryDate.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
       const order: OrderConfirmation = {
-        orderId: 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+        orderId,
         customerName: formData.fullName,
-        total: total,
-        date: new Date().toLocaleDateString('es-ES', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric', 
-          hour: '2-digit', 
-          minute: '2-digit' 
-        }),
-        items: [...cart]
+        customerEmail: formData.email,
+        address: formData.address,
+        city: formData.city,
+        zipCode: formData.zipCode,
+        subtotal,
+        tax,
+        total,
+        date: dateFormatted,
+        timestamp: Date.now(),
+        items: [...cart],
+        status: 'processing',
+        trackingNumber,
+        carrier: 'Nexus Express Logistics',
+        estimatedDelivery,
+        timeline: [
+          { status: 'processing', title: 'Orden Confirmada', description: 'Pago verificado y recibido en sistema.', timestamp: 'Ahora', completed: true },
+          { status: 'packed', title: 'Empaquetado en Almacén', description: 'En preparación para despacho.', timestamp: 'Pendiente', completed: false },
+          { status: 'shipped', title: 'En Camino con Repartidor', description: 'Tránsito a dirección de destino.', timestamp: 'Pendiente', completed: false },
+          { status: 'delivered', title: 'Entrega Programada', description: 'Paquete recibido por el cliente.', timestamp: 'Pendiente', completed: false }
+        ]
       };
 
       setLastOrder(order);
+      addOrderToHistory(order);
       clearCart();
       setIsProcessing(false);
     }, 1500);
@@ -66,6 +98,14 @@ export const CheckoutModal = () => {
   const handleClose = () => {
     setIsCheckoutOpen(false);
     setLastOrder(null);
+  };
+
+  const handleOpenTracking = () => {
+    if (lastOrder) {
+      setActiveTrackingOrderId(lastOrder.orderId);
+      setIsOrdersModalOpen(true);
+      handleClose();
+    }
   };
 
   return (
@@ -102,6 +142,10 @@ export const CheckoutModal = () => {
                 <span className={styles.orderMetaVal}>{lastOrder.orderId}</span>
               </div>
               <div className={styles.orderMetaRow}>
+                <span className={styles.orderMetaLabel}>Código de Rastreo:</span>
+                <span className={styles.orderMetaVal} style={{ color: '#00f0ff', fontFamily: 'monospace' }}>{lastOrder.trackingNumber}</span>
+              </div>
+              <div className={styles.orderMetaRow}>
                 <span className={styles.orderMetaLabel}>Fecha y Hora:</span>
                 <span className={styles.orderMetaVal}>{lastOrder.date}</span>
               </div>
@@ -119,9 +163,23 @@ export const CheckoutModal = () => {
               </div>
             </div>
 
-            <button className={styles.continueBtn} onClick={handleClose}>
-              Seguir Comprando
-            </button>
+            <div style={{ display: 'flex', gap: '0.75rem', width: '100%', marginTop: '1rem' }}>
+              <button 
+                className={styles.continueBtn} 
+                onClick={handleOpenTracking}
+                style={{ background: 'linear-gradient(135deg, #00f0ff, #7000ff)', border: 'none', flex: 1 }}
+              >
+                <Truck size={18} />
+                <span>Rastrear Envío Ahora</span>
+              </button>
+              <button 
+                className={styles.continueBtn} 
+                onClick={handleClose}
+                style={{ background: 'rgba(255,255,255,0.08)', flex: 1 }}
+              >
+                Seguir Comprando
+              </button>
+            </div>
           </div>
         ) : (
           /* Checkout Form */
